@@ -1,8 +1,9 @@
-import { SET_PRODUCTS, SET_PRODUCT_DETAIL , REMOVE_SELECTED_PRODUCT} from "../actions/types";
+import { SET_PRODUCTS, SET_PRODUCT_DETAIL , REMOVE_SELECTED_PRODUCT, SET_ERROR} from "../actions/types";
 
 const initialState = {
   products: [],
   selectedProduct: null,
+  error: null
 };
 
 function ProductReducer(state = initialState, { type, payload }) {
@@ -25,6 +26,13 @@ function ProductReducer(state = initialState, { type, payload }) {
       return {
         ...state,
         selectedProduct: null
+      }
+    }
+
+    case SET_ERROR : {
+      return {
+        ...state,
+        error: payload
       }
     }
 

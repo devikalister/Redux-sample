@@ -5,13 +5,12 @@ import {getProductDetailsById, removeSelectedProduct} from "../redux/actions/pro
 import { useEffect } from "react";
 import {Link} from "react-router-dom";
 
-function ProductDetail() {
+const ProductDetail = () => {
     const dispatch = useDispatch();
     const {id} = useParams();
-    const data = useSelector(state => {
-        return state.product.selectedProduct
+    const {selectedProduct, error} = useSelector(state => {
+        return state.product
     });
-    console.log(data, "data***");
 
     useEffect(() => {
         if (id) dispatch(getProductDetailsById(id));
@@ -19,17 +18,16 @@ function ProductDetail() {
             dispatch(removeSelectedProduct());
         }
       }, [dispatch,id]);
-
     
     return (
-        data ? <div>
+        error ? <div>{error}</div> : selectedProduct ? <div>
             <Link to="/products">Back To Products</Link>
-            <div>{data.id}</div>
-                <div>{data.title}</div>
-                <div>{data.price}</div>
-                <img src= {data.image} alt= {data.title} />
-                <div>{data.category}</div>
-                <div>{data.description}</div>
+            <div>{selectedProduct.id}</div>
+                <div>{selectedProduct.title}</div>
+                <div>{selectedProduct.price}</div>
+                <img src= {selectedProduct.image} alt= {selectedProduct.title} />
+                <div>{selectedProduct.category}</div>
+                <div>{selectedProduct.description}</div>
         </div> : <div>Loading......</div>
     )    
 }

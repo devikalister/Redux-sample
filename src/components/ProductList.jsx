@@ -4,7 +4,7 @@ import Product from "./Product";
 import { useEffect } from "react";
 import { getAllProducts } from "../redux/actions/productActions";
 
-const ProductList = ({ products, getAllProducts }) => {
+const ProductList = ({ products, error, getAllProducts }) => {
   useEffect(() => {
     if (!products.length) getAllProducts();
   }, [getAllProducts, products.length]);
@@ -16,7 +16,7 @@ const ProductList = ({ products, getAllProducts }) => {
         products.map((product) => (
           <Product key={product.id} product={product} />
         ))
-      ) : (
+      ) : error ? <div>{error}</div> : (
         <div>Retrieving Products.......</div>
       )}
     </div>
@@ -26,6 +26,7 @@ const ProductList = ({ products, getAllProducts }) => {
 const mapStateToProps = (state) => {
   return {
     products: state.product.products,
+    error: state.product.error
   };
 };
 

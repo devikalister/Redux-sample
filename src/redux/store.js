@@ -9,5 +9,4 @@ const defaultState = {
   },
 };
 const store = createStore(rootReducer, defaultState, middleware);
-console.log(store, "store**");
 export default store;
